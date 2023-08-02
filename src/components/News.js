@@ -4,32 +4,30 @@ import NewsCard from './NewsCard';
 import Navbar from './Navbar';
 
 const News = () => {
-  const [News, setNews] = React.useState([])
-
+  const [News, setNews] = React.useState([])    
   const options = {
     method: 'GET',
-    url: 'https://real-time-finance-data.p.rapidapi.com/currency-news',
-    params: {from_symbol: 'BTC', to_symbol: 'ETH'},
+    url: 'https://yahoo-finance15.p.rapidapi.com/api/yahoo/ne/news',
     headers: {
-      'X-RapidAPI-Key': '2eee3d6248msheb060056dbd8a6fp14801ejsn277f87739647',
-      'X-RapidAPI-Host': 'real-time-finance-data.p.rapidapi.com'
+      'X-RapidAPI-Key': '3cfbc901e9msh2ce9f12e663b47ap167a0bjsnbdbada316e8d',
+      'X-RapidAPI-Host': 'yahoo-finance15.p.rapidapi.com'
     }
   };
-   
   const fetchNews  = async () => {
     let response = await axios.request(options);
-    setNews(response.data.data.news)
+    setNews(response.data);
+    console.log(response.data) 
   }
 
   React.useEffect(()=>{
     fetchNews()
-  }, )
+  },)
 
   const newsArray = News.map(news => (
     <NewsCard 
-      title = {news.article_title}
-      url = {news.article_url}
-      img = {news.article_photo_url}
+      title = {news.title}
+      url = {news.link}
+      // img = {news.article_photo_url}
     />
   ))
 
